@@ -4,8 +4,6 @@
 #'
 #' @param X matrix. Training dataset.
 #' @param X.test matrix (optional). Testing dataset for evaluating the network.
-#' @param layers integer. Total number of layers in the network. Includes
-#'   the input and output layers. Default is \code{3}, which corresponds to one hidden layer.
 #' @param num_hidden integer. Specifies number of neurons in each hidden layer.
 #' @param activation character or function. If it's a character it has to be one of the
 #'   predefined activation functions. If it's a function, \code{d_activation}, activation prime,
@@ -28,6 +26,8 @@
 #' @param lambda numeric. Weight decay parameter.
 #' @param beta numeric. Learning rate parameter for algorithm trying to (approximately)
 #'   satisfy the sparsity constraint.
+#' @param tolerance numeric (optional). Tolarance to be used for comparing floting point numbers.
+#'   Default is \code{.Machine$double.eps}
 #' @param rho numeric. Sparsity parameter, which specifies our desired level of sparsity.
 #' @param epsilon numeric. A (small) parameter for initialization of weight matrices
 #'   as small gaussian random numbers sampled from \code{N(0, epsilon^2)}
@@ -39,11 +39,16 @@ sparse_autoenc <-
     tolerance        = sqrt(.Machine$double.eps),
     X.test           = NULL,
     d_activation     = NULL,
-    layers           = 3,
     optim_method     = "BFGS",
     max_iterations   = 2000,
     rescale          = TRUE,
     rescaling_offset = 0.001) {
 
-  'hello'
+  # There can be some match.call magic that will save me typing those lines
+  params <- validate_autoenc_params(
+    X = X, num_hidden = num_hidden, activation = activation, lambda = lambda,
+    beta = beta, rho = rho, epsilon = epsilon, tolerance = tolerance,
+    X.test = X.test, d_activation = d_activation, optim_method = optim_method,
+    max_iterations = max_iterations, rescale = rescale,
+    rescaling_offset = rescaling_offset)
 }
