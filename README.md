@@ -1,6 +1,4 @@
-autoenc: Clean implementation of sparse autoencoders in R
-===========
-
+# autoenc: Clean implementation of sparse autoencoders in R
 Implementation based off [this article](http://web.stanford.edu/class/archive/cs/cs294a/cs294a.1104/sparseAutoencoder.pdf).
 
 The goal is to have a very readable and well-tested implementation, so that autoencoders can be used in production and trusted.
