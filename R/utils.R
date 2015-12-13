@@ -16,7 +16,7 @@ is_single_numeric <- function(x) {
 }
 
 validate_positive_numeric <- function(x, var = 'arg') {
-  stop_if_not(is_single_numeric(x) && (x > 0), paste0(var, ' must be a positive numeric.')
+  stop_if_not(is_single_numeric(x) && (x > 0), paste0(var, ' must be a positive numeric.'))
   x
 }
 

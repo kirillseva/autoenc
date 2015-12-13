@@ -14,6 +14,7 @@ ACTIVATION_FUNCTIONS <- list(
 
 OPTIM_METHODS <- c("BFGS", "L-BFGS-B", "CG")
 
+# call autoenc:::constants in order to get a quick peek at suitable defaults.
 constants <- list(
   optim_methods        = OPTIM_METHODS,
   activation_functions = ACTIVATION_FUNCTIONS
