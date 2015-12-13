@@ -1,4 +1,4 @@
-# autoenc: Clean implementation of sparse autoencoders in R
+# autoenc: sparse autoencoders in R ![travis](https://img.shields.io/travis/kirillseva/autoenc.svg) ![codecov](https://img.shields.io/codecov/c/github/kirillseva/autoenc.svg)
 Implementation based off [this article](http://web.stanford.edu/class/archive/cs/cs294a/cs294a.1104/sparseAutoencoder.pdf).
 
 The goal is to have a very readable and well-tested implementation, so that autoencoders can be used in production and trusted.
