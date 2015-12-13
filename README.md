@@ -1,9 +1,8 @@
-autoenc: the R package that could
+autoenc: Clean implementation of sparse autoencoders in R
 ===========
 
-This repository is based off a basic template for R packages that already includes
-Travis and [covr](http://github.com/jimhester/covr) integration.
+Implementation based off [this article](http://web.stanford.edu/class/archive/cs/cs294a/cs294a.1104/sparseAutoencoder.pdf).
 
-Do not forget to set those up at https://travis-ci.org/ and https://coveralls.io/
+The goal is to have a very readable and well-tested implementation, so that autoencoders can be used in production and trusted.
 
-But soon it will be much more than that!
+The existing CRAN [implementation](https://github.com/cran/autoencoder) of autoencoders has no test coverage and is hard to follow, so auditing this package for any serious use case would involve spending quite a bit of time. Autoenc package is designed with code readability in mind, following best functional programming practices, in order to make it comfortable for others to use and enhance this package.
