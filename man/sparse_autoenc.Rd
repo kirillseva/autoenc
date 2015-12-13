@@ -6,8 +6,8 @@
 \usage{
 sparse_autoenc(X, num_hidden, activation, lambda, beta, rho, epsilon,
   tolerance = sqrt(.Machine$double.eps), X.test = NULL,
-  d_activation = NULL, layers = 3, optim_method = "BFGS",
-  max_iterations = 2000, rescale = TRUE, rescaling_offset = 0.001)
+  d_activation = NULL, optim_method = "BFGS", max_iterations = 2000,
+  rescale = TRUE, rescaling_offset = 0.001)
 }
 \arguments{
 \item{X}{matrix. Training dataset.}
@@ -28,14 +28,14 @@ satisfy the sparsity constraint.}
 \item{epsilon}{numeric. A (small) parameter for initialization of weight matrices
   as small gaussian random numbers sampled from \code{N(0, epsilon^2)}}
 
+\item{tolerance}{numeric (optional). Tolarance to be used for comparing floting point numbers.
+Default is \code{.Machine$double.eps}}
+
 \item{X.test}{matrix (optional). Testing dataset for evaluating the network.}
 
 \item{d_activation}{function (optional). This parameter will be omitted if
 activation is a character, otherwise this function will be used in backpropagation
 as activation prime, in which case this parameter becomes mandatory.}
-
-\item{layers}{integer. Total number of layers in the network. Includes
-the input and output layers. Default is \code{3}, which corresponds to one hidden layer.}
 
 \item{optim_method}{character (optional). Optimization method to be used. Please check
 \code{autoenc:::constants$optim_methods} for available options. Default is \code{"BFGS"}.}

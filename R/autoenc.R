@@ -45,4 +45,18 @@ sparse_autoenc <-
     rescaling_offset = 0.001) {
 
   params <- do.call(validate_autoenc_params, as.list(environment()))
+  train(preprocess(params))
+}
+
+#' Predict method for a fitted autoencoder
+#'
+#' @param object  autoenc. An object returned by \code{sparse_autoenc} function.
+#' @param newdata dataframe or matrix. An object to predict upon
+#' @param \dots further arguments passed to or from other methods
+#' @return Returns a numeric matrix, where each row of the input matrix corresponds to
+#'   the value at the last hidden layer of the autoencoder.
+#'
+#' @export
+predict.autoenc <- function(object, newdata, ...) {
+  matrix()
 }
