@@ -44,11 +44,5 @@ sparse_autoenc <-
     rescale          = TRUE,
     rescaling_offset = 0.001) {
 
-  # There can be some match.call magic that will save me typing those lines
-  params <- validate_autoenc_params(
-    X = X, num_hidden = num_hidden, activation = activation, lambda = lambda,
-    beta = beta, rho = rho, epsilon = epsilon, tolerance = tolerance,
-    X.test = X.test, d_activation = d_activation, optim_method = optim_method,
-    max_iterations = max_iterations, rescale = rescale,
-    rescaling_offset = rescaling_offset)
+  params <- do.call(validate_autoenc_params, as.list(environment()))
 }
