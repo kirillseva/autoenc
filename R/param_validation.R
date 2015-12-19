@@ -37,7 +37,7 @@ validate_max_iterations <- function(x) {
 }
 
 validate_num_hidden <- function(x) {
-  if (is.numeric(x) && all(x %% 1 == 0)) {
+  if (is.numeric(x) && isTRUE(all(x %% 1 == 0)) && isTRUE(all(x > 0))) {
     x
   } else {
     stop('num_hidden must be an integer vector, specifying number of neurons in each hidden layer.')
@@ -47,7 +47,7 @@ validate_num_hidden <- function(x) {
 validate_rescale <- function(x) if (isTRUE(x)) { TRUE } else { FALSE }
 
 validate_rescaling_offset <- function(offset, rescale) {
-  if (isTRUE(rescale)) { validate_positive_numeric(offset, 'rescaling_offset') }
+  if (isTRUE(validate_rescale(rescale))) { validate_positive_numeric(offset, 'rescaling_offset') }
 }
 
 validate_activation <- function(activation, d_activation) {
