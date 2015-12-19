@@ -101,3 +101,28 @@ describe('activation', {
     })
   })
 })
+
+describe('train matrix', {
+  test_that('non-matrix and non data.frame returns an error', {
+    BAD_VALUES <- list(-1, c(1, 2), FALSE, NULL, function(x) { x }, 'hello')
+    lapply(BAD_VALUES, function(value) {
+      expect_error(validate_train_matrix(value), 'Provided datasets for test and training must be either numeric data frames or matrixes')
+    })
+  })
+
+  test_that('matrix', {
+    value <- matrix(0, nrow = 4, ncol = 5)
+    expect_equal(validate_train_matrix(value), value)
+  })
+
+  describe('data.frame', {
+    test_that('good df', {
+      value <- data.frame(a = 1:10, b = rep(4.2, 10))
+      expect_equal(validate_train_matrix(value), as.matrix(value))
+    })
+
+    test_that('bad df', {
+      expect_error(validate_train_matrix(data.frame(a = 1, b = 'hello')), 'Provided data.frame must contain only numeric columns')
+    })
+  })
+})
