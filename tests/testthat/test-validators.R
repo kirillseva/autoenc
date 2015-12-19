@@ -67,3 +67,37 @@ describe('rescaling', {
     })
   })
 })
+
+describe('activation', {
+  describe('non-character and non-function', {
+    BAD_VALUES <- list(-1, c(1, 2), FALSE, NULL)
+    lapply(BAD_VALUES, function(value) {
+      test_that(paste0('Gives a descriptive error message for ', capture.output(print(value))), {
+        expect_error(validate_activation(value, value), 'Must be either a function or one of predefined activations')
+      })
+    })
+  })
+
+  describe('character', {
+    test_that('positive cases', {
+      lapply(names(ACTIVATION_FUNCTIONS), function(nm) {
+        expect_equal(validate_activation(nm, TRUE), ACTIVATION_FUNCTIONS[[nm]])
+      })
+    })
+
+    test_that('for a weird name you\'ll get an error', {
+      expect_error(validate_activation('hello', TRUE), 'No such activation function found. Please select from')
+    })
+  })
+
+  describe('function', {
+    test_that('works for two supplied functions', {
+      funcs <- list(activation = function(x) { x }, d_activation = function(x) { 1 })
+      expect_equal(do.call(validate_activation, funcs), funcs)
+    })
+
+    test_that('you need to supply d_activation too', {
+      expect_error(validate_activation(function(x) { x }, TRUE), 'd_activation must be a function')
+    })
+  })
+})
