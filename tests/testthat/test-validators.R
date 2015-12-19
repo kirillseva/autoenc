@@ -58,7 +58,6 @@ describe('rescaling', {
       })
       expect_null(validate_rescaling_offset(0.5, FALSE))
     })
-
     test_that('when rescale is false return value is NULL', {
       lapply(BAD_VALUES, function(value) {
         expect_error(validate_rescaling_offset(value, TRUE), 'must be a positive numeric')
@@ -84,7 +83,6 @@ describe('activation', {
         expect_equal(validate_activation(nm, TRUE), ACTIVATION_FUNCTIONS[[nm]])
       })
     })
-
     test_that('for a weird name you\'ll get an error', {
       expect_error(validate_activation('hello', TRUE), 'No such activation function found. Please select from')
     })
@@ -95,9 +93,61 @@ describe('activation', {
       funcs <- list(activation = function(x) { x }, d_activation = function(x) { 1 })
       expect_equal(do.call(validate_activation, funcs), funcs)
     })
-
     test_that('you need to supply d_activation too', {
       expect_error(validate_activation(function(x) { x }, TRUE), 'd_activation must be a function')
     })
+  })
+})
+
+describe('optim method', {
+  test_that('returns an error on unknown methods', {
+    expect_error(validate_optim_method('hello'), 'should be one of')
+  })
+  test_that('correctly validates a good method', {
+    value <- OPTIM_METHODS[1L]
+    expect_equal(validate_optim_method(value), value)
+  })
+})
+
+describe('train matrix', {
+  test_that('non-matrix and non data.frame returns an error', {
+    BAD_VALUES <- list(-1, c(1, 2), FALSE, NULL, function(x) { x }, 'hello')
+    lapply(BAD_VALUES, function(value) {
+      expect_error(validate_train_matrix(value), 'Provided datasets for test and training must be either numeric data frames or matrixes')
+    })
+  })
+
+  describe('matrix', {
+    test_that('good matrix', {
+      value <- matrix(0, nrow = 4, ncol = 5)
+      expect_equal(validate_train_matrix(value), value)
+    })
+    test_that('bad matrix', {
+      expect_error(validate_train_matrix(matrix('hello', nrow = 4, ncol = 5)), 'Provided datasets must be numeric matrixes')
+    })
+  })
+
+  describe('data.frame', {
+    test_that('good df', {
+      value <- data.frame(a = 1:10, b = rep(4.2, 10))
+      expect_equal(validate_train_matrix(value), as.matrix(value))
+    })
+    test_that('bad df', {
+      expect_error(validate_train_matrix(data.frame(a = 1, b = 'hello')), 'Provided data.frame must contain only numeric columns')
+    })
+  })
+})
+
+describe('test matrix', {
+  test_that('test matrix can be a matrix', {
+    value <- matrix(0, nrow = 4, ncol = 5)
+    expect_equal(validate_test_matrix(value), value)
+  })
+  test_that('test matrix can be a data.frame', {
+    value <- data.frame(a = 1:10, b = rep(4.2, 10))
+    expect_equal(validate_test_matrix(value), as.matrix(value))
+  })
+  test_that('test matrix can also be NULL', {
+    expect_equal(validate_test_matrix(NULL), NULL)
   })
 })
