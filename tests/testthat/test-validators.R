@@ -99,6 +99,16 @@ describe('activation', {
   })
 })
 
+describe('optim method', {
+  test_that('returns an error on unknown methods', {
+    expect_error(validate_optim_method('hello'), 'should be one of')
+  })
+  test_that('correctly validates a good method', {
+    value <- OPTIM_METHODS[1L]
+    expect_equal(validate_optim_method(value), value)
+  })
+})
+
 describe('train matrix', {
   test_that('non-matrix and non data.frame returns an error', {
     BAD_VALUES <- list(-1, c(1, 2), FALSE, NULL, function(x) { x }, 'hello')

@@ -75,9 +75,7 @@ validate_optim_method <- function(optim_method) {
   match_arg(optim_method, OPTIM_METHODS)
 }
 
-validate_train_matrix <- function(x) {
-  UseMethod('validate_train_matrix')
-}
+validate_train_matrix <- function(x) { UseMethod('validate_train_matrix') }
 validate_train_matrix.data.frame <- function(x) {
   numerical <- vapply(x, is.numeric, logical(1))
   if (all(numerical)) {
